@@ -1,0 +1,267 @@
+/* ChatGPT Token Counter Overlay Styles */
+
+#chatgpt-token-counter-overlay {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 200px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 12px;
+  z-index: 10000;
+  user-select: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  #chatgpt-token-counter-overlay {
+    background: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+}
+
+/* Header */
+.token-counter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 8px 8px 0 0;
+  cursor: move;
+}
+
+@media (prefers-color-scheme: dark) {
+  .token-counter-header {
+    background: #374151;
+    border-bottom-color: #4b5563;
+  }
+}
+
+.token-counter-title {
+  font-weight: 600;
+  font-size: 12px;
+  color: #374151;
+}
+
+@media (prefers-color-scheme: dark) {
+  .token-counter-title {
+    color: #f9fafb;
+  }
+}
+
+.token-counter-toggle {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.token-counter-toggle:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+@media (prefers-color-scheme: dark) {
+  .token-counter-toggle {
+    color: #9ca3af;
+  }
+  
+  .token-counter-toggle:hover {
+    background: #4b5563;
+    color: #f9fafb;
+  }
+}
+
+/* Content */
+.token-counter-content {
+  padding: 12px;
+}
+
+.token-counter-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-label {
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.stat-value {
+  font-weight: 600;
+  font-size: 12px;
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stat-label {
+    color: #9ca3af;
+  }
+  
+  .stat-value {
+    color: #f9fafb;
+  }
+}
+
+/* Special styling for total tokens */
+.stat-item:nth-child(3) .stat-value {
+  color: #059669;
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stat-item:nth-child(3) .stat-value {
+    color: #10b981;
+  }
+}
+
+/* Cost styling */
+#cost-item .stat-value {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  #cost-item .stat-value {
+    color: #f87171;
+  }
+}
+
+/* Live tokens */
+.token-counter-live {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .token-counter-live {
+    border-top-color: #4b5563;
+  }
+}
+
+.token-counter-live .stat-value {
+  color: #2563eb;
+  animation: pulse 2s infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .token-counter-live .stat-value {
+    color: #60a5fa;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Hover effects */
+#chatgpt-token-counter-overlay:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #chatgpt-token-counter-overlay {
+    width: 180px;
+    font-size: 11px;
+  }
+  
+  .token-counter-content {
+    padding: 10px;
+  }
+  
+  .stat-item {
+    gap: 4px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  #chatgpt-token-counter-overlay {
+    border-width: 2px;
+    border-color: #000000;
+  }
+  
+  .token-counter-header {
+    border-bottom-width: 2px;
+  }
+  
+  .stat-value {
+    font-weight: 800;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #chatgpt-token-counter-overlay,
+  .token-counter-toggle,
+  .token-counter-live .stat-value {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.token-counter-toggle:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
+/* Ensure overlay doesn't interfere with ChatGPT interface */
+#chatgpt-token-counter-overlay * {
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar for future use */
+#chatgpt-token-counter-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+
+#chatgpt-token-counter-overlay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#chatgpt-token-counter-overlay::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  #chatgpt-token-counter-overlay::-webkit-scrollbar-thumb {
+    background: #4b5563;
+  }
+}

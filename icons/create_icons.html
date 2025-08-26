@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Generator</title>
+</head>
+<body>
+    <canvas id="canvas16" width="16" height="16" style="border: 1px solid #ccc; margin: 10px;"></canvas>
+    <canvas id="canvas48" width="48" height="48" style="border: 1px solid #ccc; margin: 10px;"></canvas>
+    <canvas id="canvas128" width="128" height="128" style="border: 1px solid #ccc; margin: 10px;"></canvas>
+
+    <script>
+        function createIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#10a37f');
+            gradient.addColorStop(1, '#1a7f64');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // White circle background
+            const padding = size * 0.125;
+            const radius = (size - padding * 2) / 2;
+            const center = size / 2;
+            
+            ctx.beginPath();
+            ctx.arc(center, center, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            
+            // Draw token dots
+            const dotSize = size * 0.06;
+            ctx.fillStyle = '#10a37f';
+            
+            // 3x3 grid of dots
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    const x = center - dotSize + (col - 1) * dotSize * 2.5;
+                    const y = center - dotSize + (row - 1) * dotSize * 2.5;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, dotSize, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+        
+        // Create all icons
+        createIcon('canvas16', 16);
+        createIcon('canvas48', 48);
+        createIcon('canvas128', 128);
+        
+        // Function to download canvas as PNG
+        function downloadCanvas(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Auto-download icons (uncomment to use)
+        // setTimeout(() => {
+        //     downloadCanvas('canvas16', 'icon16.png');
+        //     downloadCanvas('canvas48', 'icon48.png');
+        //     downloadCanvas('canvas128', 'icon128.png');
+        // }, 100);
+    </script>
+</body>
+</html>

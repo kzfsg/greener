@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT Token Counter</title>
+  <link rel="stylesheet" href="../styles/common.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="header-title">
+        <h1>Token Counter</h1>
+        <div class="status-indicator" id="status-indicator"></div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-small" id="settings-btn" title="Settings">⚙️</button>
+        <button class="btn btn-small" id="refresh-btn" title="Refresh">🔄</button>
+      </div>
+    </header>
+
+    <!-- Current Session Section -->
+    <section class="popup-section">
+      <div class="section-header">
+        <h2>Current Session</h2>
+        <span class="model-indicator" id="model-indicator">GPT-4o</span>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Input Tokens</div>
+          <div class="stat-value" id="input-tokens">0</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-label">Output Tokens</div>
+          <div class="stat-value" id="output-tokens">0</div>
+        </div>
+        
+        <div class="stat-card highlight">
+          <div class="stat-label">Total Tokens</div>
+          <div class="stat-value" id="total-tokens">0</div>
+        </div>
+        
+        <div class="stat-card cost-card">
+          <div class="stat-label">Estimated Cost</div>
+          <div class="stat-value" id="estimated-cost">$0.0000</div>
+        </div>
+      </div>
+      
+      <!-- Live Counter -->
+      <div class="live-counter" id="live-counter" style="display: none;">
+        <div class="live-counter-header">
+          <span>💬 Typing...</span>
+        </div>
+        <div class="live-stats">
+          <span>Characters: <strong id="live-chars">0</strong></span>
+          <span>Tokens: <strong id="live-tokens">0</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="popup-section">
+      <div class="section-header">
+        <h2>Usage Statistics</h2>
+        <button class="btn btn-small" id="export-btn" title="Export Data">📊</button>
+      </div>
+      
+      <div class="stats-tabs">
+        <button class="tab-btn active" data-tab="today">Today</button>
+        <button class="tab-btn" data-tab="week">Week</button>
+        <button class="tab-btn" data-tab="all">All Time</button>
+      </div>
+      
+      <div class="tab-content" id="stats-content">
+        <div class="stats-summary">
+          <div class="summary-item">
+            <span class="summary-label">Conversations:</span>
+            <span class="summary-value" id="conversations-count">0</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Total Tokens:</span>
+            <span class="summary-value" id="total-usage-tokens">0</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Total Cost:</span>
+            <span class="summary-value" id="total-usage-cost">$0.00</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Avg per Chat:</span>
+            <span class="summary-value" id="avg-per-chat">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Context Progress -->
+    <section class="popup-section">
+      <div class="section-header">
+        <h2>Context Usage</h2>
+        <span class="context-percentage" id="context-percentage">0%</span>
+      </div>
+      
+      <div class="progress-bar">
+        <div class="progress-fill" id="context-progress"></div>
+      </div>
+      
+      <div class="progress-labels">
+        <span class="progress-current" id="context-current">0</span>
+        <span class="progress-max" id="context-max">128,000</span>
+      </div>
+      
+      <div class="context-warning" id="context-warning" style="display: none;">
+        ⚠️ Approaching context limit
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <section class="popup-section">
+      <div class="action-buttons">
+        <button class="btn" id="reset-btn">🔄 Reset Session</button>
+        <button class="btn" id="toggle-overlay-btn">👁️ Toggle Overlay</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <div class="footer-text">
+        <span>Last updated: <span id="last-updated">--</span></span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT Token Counter - Settings</title>
+  <link rel="stylesheet" href="../styles/common.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <!-- Header -->
+    <header class="options-header">
+      <div class="header-content">
+        <h1>ChatGPT Token Counter Settings</h1>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="save-settings">Save Settings</button>
+          <button class="btn" id="reset-settings">Reset to Default</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="settings-nav">
+      <button class="nav-btn active" data-section="display">Display</button>
+      <button class="nav-btn" data-section="counting">Token Counting</button>
+      <button class="nav-btn" data-section="costs">Costs & Pricing</button>
+      <button class="nav-btn" data-section="notifications">Notifications</button>
+      <button class="nav-btn" data-section="data">Data & Privacy</button>
+      <button class="nav-btn" data-section="advanced">Advanced</button>
+    </nav>
+
+    <!-- Settings Content -->
+    <main class="settings-content">
+      <!-- Display Settings -->
+      <section class="settings-section" id="display-section">
+        <h2>Display Preferences</h2>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="show-overlay" checked>
+              <span class="checkbox-custom"></span>
+              Show floating overlay on ChatGPT
+            </label>
+            <p class="setting-description">Display a small token counter widget on the ChatGPT interface</p>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Theme</label>
+            <select id="theme-select" class="setting-select">
+              <option value="auto">Auto (System)</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Overlay Position</label>
+            <div class="position-controls">
+              <label>X: <input type="number" id="overlay-x" min="0" max="1920" value="10"></label>
+              <label>Y: <input type="number" id="overlay-y" min="0" max="1080" value="10"></label>
+              <button class="btn btn-small" id="reset-position">Reset Position</button>
+            </div>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="show-live-counter" checked>
+              <span class="checkbox-custom"></span>
+              Show live token counter while typing
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Token Counting Settings -->
+      <section class="settings-section" id="counting-section" style="display: none;">
+        <h2>Token Counting</h2>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <label class="setting-label">Default Model</label>
+            <select id="default-model" class="setting-select">
+              <option value="gpt-4o">GPT-4o</option>
+              <option value="gpt-4-turbo">GPT-4 Turbo</option>
+              <option value="gpt-4">GPT-4</option>
+              <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+            </select>
+            <p class="setting-description">Model used for token counting when auto-detection fails</p>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="auto-detect-model" checked>
+              <span class="checkbox-custom"></span>
+              Auto-detect model from ChatGPT interface
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="include-system-tokens" checked>
+              <span class="checkbox-custom"></span>
+              Include system message tokens in count
+            </label>
+            <p class="setting-description">Count tokens used by system messages and chat formatting</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Costs & Pricing Settings -->
+      <section class="settings-section" id="costs-section" style="display: none;">
+        <h2>Costs & Pricing</h2>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="show-costs" checked>
+              <span class="checkbox-custom"></span>
+              Show cost estimates
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Currency</label>
+            <select id="currency-select" class="setting-select">
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="GBP">GBP (£)</option>
+              <option value="JPY">JPY (¥)</option>
+            </select>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="cost-warnings" checked>
+              <span class="checkbox-custom"></span>
+              Enable cost warnings
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Daily cost warning threshold</label>
+            <input type="number" id="cost-threshold" min="0" step="0.01" value="1.00" class="setting-input">
+            <p class="setting-description">Warn when daily usage exceeds this amount</p>
+          </div>
+          
+          <div class="custom-pricing">
+            <h3>Custom Pricing</h3>
+            <p class="setting-description">Override default OpenAI pricing (per 1K tokens)</p>
+            
+            <div class="pricing-grid">
+              <div class="pricing-item">
+                <label>GPT-4o Input</label>
+                <input type="number" id="gpt4o-input-price" step="0.0001" placeholder="0.005" class="setting-input">
+              </div>
+              <div class="pricing-item">
+                <label>GPT-4o Output</label>
+                <input type="number" id="gpt4o-output-price" step="0.0001" placeholder="0.015" class="setting-input">
+              </div>
+              <div class="pricing-item">
+                <label>GPT-4 Input</label>
+                <input type="number" id="gpt4-input-price" step="0.0001" placeholder="0.03" class="setting-input">
+              </div>
+              <div class="pricing-item">
+                <label>GPT-4 Output</label>
+                <input type="number" id="gpt4-output-price" step="0.0001" placeholder="0.06" class="setting-input">
+              </div>
+            </div>
+            
+            <button class="btn btn-small" id="reset-pricing">Reset to Default Pricing</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Notifications Settings -->
+      <section class="settings-section" id="notifications-section" style="display: none;">
+        <h2>Notifications</h2>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="notifications-enabled" checked>
+              <span class="checkbox-custom"></span>
+              Enable notifications
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="context-warnings" checked>
+              <span class="checkbox-custom"></span>
+              Context limit warnings
+            </label>
+            <p class="setting-description">Warn when approaching model context limits</p>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Context warning threshold</label>
+            <input type="range" id="context-threshold" min="50" max="95" value="80" class="setting-range">
+            <span class="range-value" id="context-threshold-value">80%</span>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="session-summaries" checked>
+              <span class="checkbox-custom"></span>
+              Session end summaries
+            </label>
+            <p class="setting-description">Show summary when leaving a conversation</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data & Privacy Settings -->
+      <section class="settings-section" id="data-section" style="display: none;">
+        <h2>Data & Privacy</h2>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <label class="setting-label">Data Storage</label>
+            <div class="data-info">
+              <div class="storage-usage">
+                <span>Storage used: <strong id="storage-used">0 KB</strong></span>
+                <div class="storage-bar">
+                  <div class="storage-fill" id="storage-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="auto-export" false>
+              <span class="checkbox-custom"></span>
+              Enable automatic data export
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Export frequency</label>
+            <select id="export-frequency" class="setting-select">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+          
+          <div class="data-actions">
+            <button class="btn" id="export-data">Export All Data</button>
+            <button class="btn" id="import-data">Import Data</button>
+            <button class="btn btn-warning" id="clear-history">Clear History</button>
+            <button class="btn btn-warning" id="reset-all-data">Reset All Data</button>
+          </div>
+        </div>
+        
+        <div class="privacy-info">
+          <h3>Privacy Information</h3>
+          <p>• All data is stored locally on your device</p>
+          <p>• No data is sent to external servers</p>
+          <p>• Conversation content is not stored, only token counts</p>
+          <p>• You can export or delete your data at any time</p>
+        </div>
+      </section>
+
+      <!-- Advanced Settings -->
+      <section class="settings-section" id="advanced-section" style="display: none;">
+        <h2>Advanced Settings</h2>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <label class="setting-label">Update interval (seconds)</label>
+            <input type="number" id="update-interval" min="1" max="60" value="2" class="setting-input">
+            <p class="setting-description">How often to update token counts</p>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="debug-mode" false>
+              <span class="checkbox-custom"></span>
+              Enable debug logging
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="performance-mode" false>
+              <span class="checkbox-custom"></span>
+              Performance mode
+            </label>
+            <p class="setting-description">Reduce CPU usage by limiting update frequency</p>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Token estimation method</label>
+            <select id="estimation-method" class="setting-select">
+              <option value="balanced">Balanced (recommended)</option>
+              <option value="conservative">Conservative (lower estimates)</option>
+              <option value="aggressive">Aggressive (higher estimates)</option>
+            </select>
+          </div>
+          
+          <div class="setting-item">
+            <label class="setting-label">Custom CSS</label>
+            <textarea id="custom-css" class="setting-textarea" placeholder="/* Custom CSS for overlay styling */"></textarea>
+            <p class="setting-description">Advanced: Custom styles for the overlay widget</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="options-footer">
+      <div class="footer-info">
+        <span>Version <span id="version">1.0.0</span></span>
+        <span>•</span>
+        <a href="#" id="support-link">Support</a>
+        <span>•</span>
+        <a href="#" id="feedback-link">Feedback</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Hidden file input for data import -->
+  <input type="file" id="file-input" accept=".json" style="display: none;">
+  
+  <script src="options.js"></script>
+</body>
+</html>
