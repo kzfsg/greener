@@ -1,8 +1,11 @@
 /* ChatGPT Token Counter Popup Styles */
 
 .popup-container {
-  width: 400px;
-  max-height: 600px;
+  width: 450px;
+  min-width: 400px;
+  max-width: 500px;
+  height: 600px;
+  max-height: 700px;
   overflow-y: auto;
   background-color: var(--background-light);
   color: var(--text-light);
@@ -370,9 +373,11 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .popup-container {
     width: 100vw;
+    min-width: 350px;
+    max-width: none;
   }
   
   .stats-grid {
@@ -381,6 +386,27 @@
   
   .action-buttons {
     flex-direction: column;
+  }
+}
+
+/* Minimum viable size for very small screens */
+@media (max-width: 350px) {
+  .popup-container {
+    width: 100vw;
+    min-width: 320px;
+    padding: 8px;
+  }
+  
+  .header-content h1 {
+    font-size: 16px;
+  }
+  
+  .stat-card {
+    padding: 8px;
+  }
+  
+  .stat-value {
+    font-size: 16px;
   }
 }
 
